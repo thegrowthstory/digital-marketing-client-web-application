@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Project Requests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 20px;
+  }
+  
+  .admin-header h1 {
+    font-size: 28px;
+  }
+  
+  .logout-btn {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .logout-btn:hover {
+    background: var(--accent-dim);
+  }
+  
+  .submissions-grid {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .submission-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  
+  .submission-card:hover {
+    border-color: var(--accent);
+  }
+  
+  .submission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 16px;
+  }
+  
+  .submission-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  
+  .submission-type {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .submission-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  
+  .meta-item {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  
+  .meta-label {
+    font-weight: 600;
+    color: var(--text);
+  }
+  
+  .submission-details {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  
+  .detail-row {
+    margin-bottom: 8px;
+  }
+  
+  .detail-label {
+    font-weight: 600;
+    color: var(--text);
+    display: inline-block;
+    min-width: 150px;
+  }
+  
+  .detail-value {
+    color: var(--muted);
+  }
+  
+  .no-submissions {
+    text-align: center;
+    padding: 60px 40px;
+    color: var(--muted);
+  }
+  
+  .no-submissions h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 60px 40px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<div class="admin-container">
+  <div class="admin-header">
+    <h1>Project Requests Dashboard</h1>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+  
+  <div id="loadingMessage" class="loading">
+    <p>Loading submissions...</p>
+  </div>
+  
+  <div id="submissionsContainer" class="submissions-grid" style="display: none;"></div>
+  <div id="noSubmissions" class="no-submissions" style="display: none;">
+    <h2>No submissions yet</h2>
+    <p>Project requests will appear here once clients submit them.</p>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+  import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBkDMLmKeLHZonC_dx9Nj_YC_RgmI7DiDI",
+    authDomain: "projects-14a34.firebaseapp.com",
+    projectId: "projects-14a34",
+    storageBucket: "projects-14a34.firebasestorage.app",
+    messagingSenderId: "726812157735",
+    appId: "1:726812157735:web:9073901fb681b52b37ab02"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Check authentication
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loadSubmissions();
+    } else {
+      window.location.href = 'login.html';
+    }
+  });
+
+  function loadSubmissions() {
+    const q = query(collection(db, 'projects'), orderBy('timestamp', 'desc'));
+    
+    onSnapshot(q, (snapshot) => {
+      const loadingMsg = document.getElementById('loadingMessage');
+      const container = document.getElementById('submissionsContainer');
+      const noSubmissions = document.getElementById('noSubmissions');
+      
+      if (snapshot.empty) {
+        loadingMsg.style.display = 'none';
+        container.style.display = 'none';
+        noSubmissions.style.display = 'block';
+      } else {
+        loadingMsg.style.display = 'none';
+        noSubmissions.style.display = 'none';
+        container.style.display = 'grid';
+        
+        container.innerHTML = snapshot.docs.map(doc => {
+          const data = doc.data();
+          const date = new Date(data.timestamp).toLocaleDateString();
+          
+          let detailsHtml = '';
+          
+          if (data.projectType === 'edit-only') {
+            detailsHtml = `
+              <div class="detail-row">
+                <span class="detail-label">Delivery Date:</span>
+                <span class="detail-value">${data.formData.editDeliveryDate || 'N/A'}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Notes:</span>
+                <span class="detail-value">${data.formData.editNotes || 'N/A'}</span>
+              </div>
+            `;
+          } else if (data.projectType === 'shoot-only') {
+            detailsHtml = `
+              <div class="detail-row">
+                <span class="detail-label">Location:</span>
+                <span class="detail-value">${data.formData.shootLocation || 'N/A'}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Shoot Date:</span>
+                <span class="detail-value">${data.formData.shootDate || 'N/A'}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Notes:</span>
+                <span class="detail-value">${data.formData.shootNotes || 'N/A'}</span>
+              </div>
+            `;
+          } else if (data.projectType === 'complete') {
+            detailsHtml = `
+              <div class="detail-row">
+                <span class="detail-label">Location:</span>
+                <span class="detail-value">${data.formData.completeLocation || 'N/A'}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Shoot Date:</span>
+                <span class="detail-value">${data.formData.completeShootDate || 'N/A'}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Edit Start:</span>
+                <span class="detail-value">${data.formData.completeEditDate || 'N/A'}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Final Delivery:</span>
+                <span class="detail-value">${data.formData.completeFinalDate || 'N/A'}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Notes:</span>
+                <span class="detail-value">${data.formData.completeNotes || 'N/A'}</span>
+              </div>
+            `;
+          }
+          
+          return `
+            <div class="submission-card">
+              <div class="submission-header">
+                <span class="submission-name">${data.clientName}</span>
+                <span class="submission-type">${data.projectType.replace(/-/g, ' ')}</span>
+              </div>
+              <div class="submission-meta">
+                <div class="meta-item">
+                  <div class="meta-label">Email</div>
+                  <a href="mailto:${data.clientEmail}">${data.clientEmail}</a>
+                </div>
+                <div class="meta-item">
+                  <div class="meta-label">Phone</div>
+                  ${data.clientPhone || 'Not provided'}
+                </div>
+                <div class="meta-item">
+                  <div class="meta-label">Videos</div>
+                  ${data.projectCount} project(s)
+                </div>
+                <div class="meta-item">
+                  <div class="meta-label">Submitted</div>
+                  ${date}
+                </div>
+              </div>
+              <div class="submission-details">
+                ${detailsHtml}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    });
+  }
+
+  window.logout = async () => {
+    await signOut(auth);
+    window.location.href = 'login.html';
+  };
+</script>
+
+</body>
+</html>

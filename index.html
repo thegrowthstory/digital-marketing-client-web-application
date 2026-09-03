@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DNA — Video, Edit, Grow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=hero-filled">
+</head>
+<body>
+
+<div class="grain"></div>
+<canvas id="threejs-canvas"></canvas>
+
+<div class="content-overlay"></div>
+
+<header class="site-header">
+  <a href="#top" class="wordmark">TheGrowthStory</a>
+  <nav class="main-nav">
+    <a href="#work">Work</a>
+    <a href="#results">Results</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="nav-cta" onclick="openProjectModal(event)">Start a project</a>
+  <button class="nav-toggle" aria-label="Open menu">
+    <span></span><span></span>
+  </button>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-copy">
+      <h1 class="reveal">
+        We shoot it,<br>
+        cut it,<br>
+        <em>sell it.</em>
+      </h1>
+      <p class="hero-sub">DNA is a small production and growth studio. We make the footage your brand needs, edit it into something people stop for, and run the campaigns that turn attention into sales.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" onclick="openProjectModal(event)">Start a project</a>
+        <button class="btn-ghost" onclick="openVideoModal('videos/Video.mp4', 'Demo Video')">
+          <span>▶</span> Watch demo
+        </button>
+      </div>
+    </div>
+    <div class="hero-frames" aria-label="Selected production and editing work">
+      <div class="frame frame-a">
+        <img src="images/hero/shooting-01.jpg" alt="Video production shoot">
+      </div>
+      <div class="frame frame-b">
+        <img src="images/hero/camera-03.webp" alt="Professional video camera">
+      </div>
+      <div class="frame frame-c">
+        <img src="images/hero/editing-04.jpg" alt="Video editing timeline">
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section class="stats">
+    <div class="stat"><span class="stat-num">40+</span><span class="stat-label">shoots delivered</span></div>
+    <div class="stat"><span class="stat-num">2.4M</span><span class="stat-label">views generated for clients</span></div>
+    <div class="stat"><span class="stat-num">3.1x</span><span class="stat-label">average return on ad spend</span></div>
+    <div class="stat"><span class="stat-num">12</span><span class="stat-label">brands currently on retainer</span></div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="work">
+    <div class="section-head">
+      <h2>Recent reel</h2>
+      <p>A mix of shoots, edits, and campaigns — swap these for your own as you land clients.</p>
+    </div>
+    <div class="reel">
+      <button class="reel-item" data-video="videos/V4.mp4" data-title="DRESS SHOWCASE">
+        <div class="reel-thumb thumb-1"><span class="play">▶</span></div>
+        <h3>DRESS SHOWCASE</h3>
+        <p>Costume Product Shoot + Edit</p>
+      </button>
+      <button class="reel-item" data-video="videos/v1.mp4" data-title="PERSONAL VLOG">
+        <div class="reel-thumb thumb-2"><span class="play">▶</span></div>
+        <h3>PERSONAL VLOG</h3>
+        <p>Paid social edit </p>
+      </button>
+      <button class="reel-item" data-video="videos/v2.mp4" data-title="G3 LUXURY SALOON">
+        <div class="reel-thumb thumb-3"><span class="play">▶</span></div>
+        <h3>G3 LUXURY SALOON</h3>
+        <p>Celebrity interview + b-roll edit</p>
+      </button>
+      <button class="reel-item" data-video="videos/v3.mp4" data-title="Happy Ending">
+        <div class="reel-thumb thumb-4"><span class="play">▶</span></div>
+        <h3>Happy Ending</h3>
+        <p>Video Shoot + Edit</p>
+      </button>
+    </div>
+  </section>
+
+  <!-- RESULTS / SOCIAL PROOF -->
+  <section id="results" class="results">
+    <div class="section-head">
+      <h2>Results, not just footage</h2>
+      <p>A few of the brands we've shot, edited, and grown — swap in your own as reviews come in.</p>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stat">+212% <span>engagement</span></div>
+        <p class="testimonial-quote">They didn't just deliver footage, they delivered a campaign. Our ad set outperformed every previous agency we'd used.</p>
+        <div class="testimonial-author">
+          <span class="author-name">Priya Menon</span>
+          <span class="author-role">Founder, Coastline Coffee</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stat">3.1x <span>ROAS</span></div>
+        <p class="testimonial-quote">Fast turnaround, sharp edits, and they actually understood what would convert — not just what looks nice.</p>
+        <div class="testimonial-author">
+          <span class="author-name">Daniel Osei</span>
+          <span class="author-role">Marketing Lead, Halcyon Fitness</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stat">40+ <span>shoots delivered</span></div>
+        <p class="testimonial-quote">On-brand, on-time, every time. DNA is now our default team for anything video.</p>
+        <div class="testimonial-author">
+          <span class="author-name">Marlow & Co.</span>
+          <span class="author-role">Retainer client since 2025</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="services" class="services">
+    <div class="section-head">
+      <h2>What we do</h2>
+    </div>
+    <div class="service-list">
+      <div class="service-row">
+        <h3>Video shooting</h3>
+        <p>On-location or studio shoots for product films, ads, interviews, and social content. One day or a full campaign calendar.</p>
+      </div>
+      <div class="service-row">
+        <h3>Editing</h3>
+        <p>Long-form cuts down to 15-second hooks. Color, sound, motion graphics — footage that's ready to publish, not just trimmed.</p>
+      </div>
+      <div class="service-row">
+        <h3>Sales &amp; marketing</h3>
+        <p>We turn the finished content into a campaign: paid social, funnels, and messaging built to convert, not just get views.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="process">
+    <div class="section-head">
+      <h2>How a project runs</h2>
+    </div>
+    <ol class="process-list">
+      <li><span class="step-num">01</span><div><h3>Brief</h3><p>We learn the brand, the offer, and what "working" looks like for you.</p></div></li>
+      <li><span class="step-num">02</span><div><h3>Shoot</h3><p>We plan and shoot the footage — on location or in studio.</p></div></li>
+      <li><span class="step-num">03</span><div><h3>Edit</h3><p>Raw footage becomes finished cuts, sized for every platform you need.</p></div></li>
+      <li><span class="step-num">04</span><div><h3>Launch &amp; grow</h3><p>We run the campaign and report on what's actually driving sales.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2>Have footage that needs to sell something?</h2>
+    <p>Tell us about the project and we'll get back to you within a day.</p>
+    <ul class="trust-strip">
+      <li>Reply within 24 hours</li>
+      <li>No long-term contract required</li>
+      <li>Revisions included on every project</li>
+    </ul>
+    <a href="mailto:hello@dna-studio.com" class="btn-primary large">hello@dna-studio.com</a>
+  </section>
+
+</main>
+
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" id="videoModalClose" aria-label="Close video">✕</button>
+    <h3 class="video-modal-title" id="videoModalTitle"></h3>
+    <div class="video-modal-player" id="videoModalPlayer"></div>
+  </div>
+</div>
+
+<!-- PROJECT FORM MODAL -->
+<div class="project-modal" id="projectModal">
+  <div class="project-modal-inner">
+    <button class="project-modal-close" id="projectModalClose" aria-label="Close form">✕</button>
+    <h2>Start Your Project</h2>
+    <form id="projectForm">
+      
+      <!-- Client Info -->
+      <div class="form-group">
+        <label for="clientName">Your Name</label>
+        <input type="text" id="clientName" name="clientName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="clientEmail">Email</label>
+        <input type="email" id="clientEmail" name="clientEmail" required>
+      </div>
+
+      <div class="form-group">
+        <label for="clientPhone">Phone</label>
+        <input type="tel" id="clientPhone" name="clientPhone">
+      </div>
+
+      <!-- Project Type Selection -->
+      <div class="form-group">
+        <label>Project Type</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="projectType" value="edit-only" onchange="updateFormFields()">
+            <span>Editing Only</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="projectType" value="shoot-only" onchange="updateFormFields()">
+            <span>Video Shoot Only</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="projectType" value="complete" onchange="updateFormFields()">
+            <span>Complete Marketing (Shoot + Editing)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Number of Projects -->
+      <div class="form-group">
+        <label for="projectCount">Number of Projects/Videos</label>
+        <input type="number" id="projectCount" name="projectCount" min="1" value="1" required>
+      </div>
+
+      <!-- Editing Only Fields -->
+      <div id="editOnlyFields" class="project-fields hidden">
+        <h3>Editing Details</h3>
+        <div class="form-group">
+          <label for="editDeliveryDate">Delivery Date Needed</label>
+          <input type="date" id="editDeliveryDate" name="editDeliveryDate">
+        </div>
+        <div class="form-group">
+          <label for="editNotes">Project Description / Notes</label>
+          <textarea id="editNotes" name="editNotes" rows="4" placeholder="Describe your video content and editing requirements..."></textarea>
+        </div>
+      </div>
+
+      <!-- Shoot Only Fields -->
+      <div id="shootOnlyFields" class="project-fields hidden">
+        <h3>Shoot Details</h3>
+        <div class="form-group">
+          <label for="shootLocation">Shoot Location</label>
+          <input type="text" id="shootLocation" name="shootLocation" placeholder="e.g., Studio, New York, Remote">
+        </div>
+        <div class="form-group">
+          <label for="shootDate">Shoot Date</label>
+          <input type="date" id="shootDate" name="shootDate">
+        </div>
+        <div class="form-group">
+          <label for="shootNotes">Project Description / Notes</label>
+          <textarea id="shootNotes" name="shootNotes" rows="4" placeholder="Describe what you want to shoot..."></textarea>
+        </div>
+      </div>
+
+      <!-- Complete Marketing Fields -->
+      <div id="completeFields" class="project-fields hidden">
+        <h3>Shoot & Edit Details</h3>
+        <div class="form-group">
+          <label for="completeLocation">Shoot Location</label>
+          <input type="text" id="completeLocation" name="completeLocation" placeholder="e.g., Studio, New York, Remote">
+        </div>
+        <div class="form-group">
+          <label for="completeShootDate">Shoot Date</label>
+          <input type="date" id="completeShootDate" name="completeShootDate">
+        </div>
+        <div class="form-group">
+          <label for="completeEditDate">Editing Start Date</label>
+          <input type="date" id="completeEditDate" name="completeEditDate">
+        </div>
+        <div class="form-group">
+          <label for="completeFinalDate">Final Output Delivery Date</label>
+          <input type="date" id="completeFinalDate" name="completeFinalDate">
+        </div>
+        <div class="form-group">
+          <label for="completeNotes">Project Description / Notes</label>
+          <textarea id="completeNotes" name="completeNotes" rows="4" placeholder="Describe your project scope and goals..."></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Submit Project Request</button>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <span>DNA</span>
+  <span>© 2026. Built with care.</span>
+</footer>
+
+<script src="script.js"></script>
+<script type="module" src="three-scene.js?v=debug2"></script>
+<script src="firebase-init.js" type="module"></script>
+
+</body>
+</html>
