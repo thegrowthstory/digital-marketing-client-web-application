@@ -41,7 +41,7 @@
         cut it,<br>
         <em>sell it.</em>
       </h1>
-      <p class="hero-sub">DNA is a small production and growth studio. We make the footage your brand needs, edit it into something people stop for, and run the campaigns that turn attention into sales.</p>
+      <p class="hero-sub">DNA is a small production and growth studio. We write the concept and script behind your brand, shoot the footage it needs, edit it into something people stop for, and run the campaigns that turn attention into sales.</p>
       <div class="hero-actions">
         <a href="#" class="btn-primary" onclick="openProjectModal(event)">Start a project</a>
         <button class="btn-ghost" onclick="openVideoModal('videos/Video.mp4', 'Demo Video')">
@@ -139,6 +139,10 @@
     </div>
     <div class="service-list">
       <div class="service-row">
+        <h3>Content &amp; script writing</h3>
+        <p>We write the concept, storyline and script for your promotional video ourselves — you don't need to prepare anything before the shoot.</p>
+      </div>
+      <div class="service-row">
         <h3>Video shooting</h3>
         <p>On-location or studio shoots for product films, ads, interviews, and social content. One day or a full campaign calendar.</p>
       </div>
@@ -159,7 +163,7 @@
       <h2>How a project runs</h2>
     </div>
     <ol class="process-list">
-      <li><span class="step-num">01</span><div><h3>Brief</h3><p>We learn the brand, the offer, and what "working" looks like for you.</p></div></li>
+      <li><span class="step-num">01</span><div><h3>Brief &amp; script</h3><p>We learn the brand, the offer, and write the concept and script for your video.</p></div></li>
       <li><span class="step-num">02</span><div><h3>Shoot</h3><p>We plan and shoot the footage — on location or in studio.</p></div></li>
       <li><span class="step-num">03</span><div><h3>Edit</h3><p>Raw footage becomes finished cuts, sized for every platform you need.</p></div></li>
       <li><span class="step-num">04</span><div><h3>Launch &amp; grow</h3><p>We run the campaign and report on what's actually driving sales.</p></div></li>
@@ -216,16 +220,16 @@
         <label>Project Type</label>
         <div class="radio-group">
           <label class="radio-label">
-            <input type="radio" name="projectType" value="edit-only" onchange="updateFormFields()">
-            <span>Editing Only</span>
+            <input type="radio" name="projectType" value="complete" onchange="updateFormFields()">
+            <span>Complete Marketing (Content, Script, Shoot + Editing)</span>
           </label>
           <label class="radio-label">
             <input type="radio" name="projectType" value="shoot-only" onchange="updateFormFields()">
             <span>Video Shoot Only</span>
           </label>
           <label class="radio-label">
-            <input type="radio" name="projectType" value="complete" onchange="updateFormFields()">
-            <span>Complete Marketing (Shoot + Editing)</span>
+            <input type="radio" name="projectType" value="edit-only" onchange="updateFormFields()">
+            <span>Editing Only</span>
           </label>
         </div>
       </div>
@@ -268,7 +272,7 @@
 
       <!-- Complete Marketing Fields -->
       <div id="completeFields" class="project-fields hidden">
-        <h3>Shoot & Edit Details</h3>
+        <h3>Content, Script, Shoot &amp; Edit Details</h3>
         <div class="form-group">
           <label for="completeLocation">Shoot Location</label>
           <input type="text" id="completeLocation" name="completeLocation" placeholder="e.g., Studio, New York, Remote">
@@ -287,7 +291,7 @@
         </div>
         <div class="form-group">
           <label for="completeNotes">Project Description / Notes</label>
-          <textarea id="completeNotes" name="completeNotes" rows="4" placeholder="Describe your project scope and goals..."></textarea>
+          <textarea id="completeNotes" name="completeNotes" rows="4" placeholder="Describe your project scope and goals. We'll write the concept and script for you — share any ideas or preferences here, or leave blank and we'll take it from scratch."></textarea>
         </div>
       </div>
 
